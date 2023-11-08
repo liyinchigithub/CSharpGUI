@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace MyAvaloniaApp;
+namespace CSharpGUI;
 
 class Program
 {

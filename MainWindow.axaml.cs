@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace MyAvaloniaApp;
+namespace CSharpGUI;
 
 public partial class MainWindow : Window
 {
