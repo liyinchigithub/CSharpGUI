@@ -27,17 +27,9 @@ namespace CSharpGUI
             string password = this.FindControl<TextBox>("Password").Text;
 
             // 在这里处理登录逻辑...
-            // 创建消息框
-            var messageBox = new Window
-            {
-                Title = "提示",
-                Content = new TextBlock { Text = "登录成功！" },
-                Width = 200,
-                Height = 100
-            };
             // 弹窗提示
-            messageBox.ShowDialog(this);
-            
+            MessageBox.Show("登录成功！");
+            Close();
         }
     }
 }

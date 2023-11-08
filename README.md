@@ -1047,10 +1047,26 @@ dotnet build
 
 7. 报错”/Users/liyinchi/workspace/C#/MyAvaloniaApp/.history/MainWindow_20231107202706.axaml : Avalonia error AVLN:0002: Duplicate x:Class directive, MyAvaloniaApp.MainWindow is already used in /.history/MainWindow_20231107173732.axaml [/Users/liyinchi/workspace/C#/MyAvaloniaApp/MyAvaloniaApp.csproj]“
 
+原因：我用的是vscode 历史插件，会自动生成一个.history文件夹，文件夹里就有MainWindow_20231108104157.axaml、ainWindow_20231108102528.axaml这些文件，VS Code 的历史插件确实会在 .history 文件夹中生成历史版本的文件。然而，这些文件不应该被包含在你的项目编译中。这可能是你遇到这个错误的原因。
 
+解决办法：
+你需要在你的 CSharpGUI.csproj 项目文件中排除 .history 文件夹。你可以通过编辑 CSharpGUI.csproj 文件来实现这一点，添加一个 <Compile Remove=".history\**" /> 条目来排除 .history 文件夹。
 
-解决办法：删除出.history文件夹
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- 其他项目设置... -->
+
+  <ItemGroup>
+    <Compile Remove=".history\**" />
+    <EmbeddedResource Remove=".history\**" />
+    <None Remove=".history\**" />
+    <Page Remove=".history\**" />
+    <AvaloniaResource Remove=".history\**" />
+</ItemGroup>
+
+</Project>
+```
 
 
 
@@ -1098,3 +1114,10 @@ dotnet build
 (3)检查项目文件：
 打开你的 .csproj 文件，检查是否有任何错误或遗漏的引用。
 确保所有的项目引用和包引用都是正确的。
+
+
+10. 报错了“/Users/liyinchi/workspace/C#/CSharpGUI/MainWindow.axaml(9,6,9,6): Avalonia error AVLN:0004: Unable to find a setter that allows multiple assignments to the property Child of type Avalonia.Controls:Avalonia.Controls.Decorator Line 9, position 6. [/Users/liyinchi/workspace/C#/CSharpGUI/CSharpGUI.csproj]”
+
+原因：因为你在 Border 控件中直接放置了多个子控件。在 Avalonia UI 中，Border 控件只能包含一个子控件。如果你想在 Border 中放置多个控件，你需要使用一个容器控件，如 StackPanel 或 Grid。
+
+解决办法：StackPanel 是 Border 的唯一子控件，然后 TextBox 和 Button 控件都是 StackPanel 的子控件。这样就可以在 Border 中放置多个控件了。
