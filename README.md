@@ -1,17 +1,31 @@
 # CSharp GUI
 
-
+[![.Net Core 7](https://img.shields.io/badge/.NetCore-v7-blue.svg)](https://nodejs.org/en/blog/release/v8.11.4/) [![avalonia ui](https://img.shields.io/badge/avaloniaUI-v11.0.2-orange.svg)](https://docs.avaloniaui.net/zh-Hans/docs/next/welcome)
 
 ## 环境
 
- * .Net Core 7
+ * [.Net Core 7](https://learn.microsoft.com/zh-cn/teamblog/introducing-net-core-docs)
  * Mac pro / Windows 10
  * visual studio code
+ * [avalonia ui](https://docs.avaloniaui.net/docs/next/get-started/)
 
 ## 安装
 
 * .Net Core
 * 安装Avalonia
+
+环境配置
+
+mac pro
+```bash
+cd /
+vim ./~bash_profile
+export PATH="$PATH:/usr/local/share/dotnet"
+```
+
+```bash
+dotnet --version
+```
 
 ## 运行
 
@@ -23,7 +37,7 @@ dotnet run
 
 >App.axaml
 
-这个文件是 Avalonia UI 框架的应用程序配置文件，名为 App.axaml。
+这个文件是 [Avalonia UI](https://docs.avaloniaui.net/docs/next/get-started/) 框架的应用程序配置文件，名为 App.axaml。
 
 它定义了应用程序的主题、样式等全局设置。
 
@@ -1121,3 +1135,12 @@ dotnet build
 原因：因为你在 Border 控件中直接放置了多个子控件。在 Avalonia UI 中，Border 控件只能包含一个子控件。如果你想在 Border 中放置多个控件，你需要使用一个容器控件，如 StackPanel 或 Grid。
 
 解决办法：StackPanel 是 Border 的唯一子控件，然后 TextBox 和 Button 控件都是 StackPanel 的子控件。这样就可以在 Border 中放置多个控件了。
+
+11. 报错了“error CS0246: 未能找到类型或命名空间名“MessageBoxWindow”(是否缺少 using 指令或程序集引用”
+
+解决办法：
+
+12. 报错了”Application”未包含“Windows”的定义，并且找不到可接受第一个“Application”类型参数的可访问扩展方法“Windows”(是否缺少 using 指令或程序集引用?)“
+
+解决办法：
+

@@ -29,7 +29,7 @@ namespace MyNamespace
             {
                 Console.WriteLine("\nException Caught!");
                 Console.WriteLine("Message :{0} ", e.Message);
-                return null;
+                return e.Message;
             }
         }
 
@@ -47,7 +47,7 @@ namespace MyNamespace
             {
                 Console.WriteLine("\nException Caught!");
                 Console.WriteLine("Message :{0} ", e.Message);
-                return null;
+                return e.Message;
             }
         }
     }

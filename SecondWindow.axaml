@@ -1,0 +1,13 @@
+<Window x:Class="CSharpGUI.SecondWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- XAML内容 -->
+    <!-- 表格布局 2行2列 -->
+    <Grid RowDefinitions="*,*">
+        <TextBlock Text="{Binding Message}" Grid.Row="0"/>
+        <TextBox Grid.Row="1" Text="{Binding Message}"/>
+        <TextBox Grid.Row="2" Text="{Binding Message}"/>
+        <TextBox Grid.Row="3" Text="{Binding Message}"/>
+
+    </Grid>
+</Window>
