@@ -7,6 +7,9 @@ namespace CSharpGUI
 {
     public partial class MainWindow : Window
     {
+        private SecondWindow? _secondWindow;
+        private Window? _messageBox;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -17,6 +20,28 @@ namespace CSharpGUI
             {
                 loginButton.Click += OnClickLoginBut;
             }
+
+            // 创建messageBox实例
+            _messageBox = new Window
+            {
+                Title = "提示",
+                Content = new TextBlock
+                {
+                    Text = "账号或密码不能为空！",
+                    // 居中对齐
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+                    // 字体大小
+                    FontSize = 20,
+                    // 字体颜色
+                    Foreground = new SolidColorBrush(Colors.Red)
+                },
+                Width = 200,
+                Height = 100,
+                // 居中对齐
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center
+            };
         }
 
         private void InitializeComponent()
@@ -36,66 +61,24 @@ namespace CSharpGUI
             // 判断是否为空
             if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password))
             {
-                // 提示
-                var messageBox = new Window
-                {
-                    Title = "提示",
-                    Content = new TextBlock
-                    {
-                        Text = "账号或密码不能为空！",
-                        // 居中对齐
-                        HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                        VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-                        // 字体大小
-                        FontSize = 20,
-                        // 字体颜色
-                        Foreground = new SolidColorBrush(Colors.Red)
-                    },
-                    Width = 200,
-                    Height = 100,
-                    // 居中对齐
-                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center
-                };
                 // 弹窗提示
-                messageBox.ShowDialog(this);
+                _messageBox?.ShowDialog(this);
             }
             else
             {
                 // 隐藏当前窗口
                 this.Hide();
-                // 创建第二个窗口
-                var secondWindow = new SecondWindow();
-                // 显示第二个窗口
-                secondWindow.Show();
 
-                // 显示消息框
-                var messageBox = new Window
+                // 检查是否已经存在SecondWindow实例
+                if (_secondWindow == null)
                 {
-                    Title = "提示",
-                    Content = new TextBlock
-                    {
-                        Text = "登录成功！",
-                        // 居中对齐
-                        HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                        VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-                        // 字体大小
-                        FontSize = 40,
-                        // 字体颜色
-                        Foreground = new SolidColorBrush(Colors.Red)
-
-                    },
-                    Width = 200,
-                    Height = 100,
-                    // 居中对齐
-                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center
-                };
-                // 弹窗提示
-                messageBox.ShowDialog(secondWindow);
+                    // 如果不存在，则创建新的实例
+                    _secondWindow = new SecondWindow();
+                }
+                
+                // 显示SecondWindow实例
+                _secondWindow.Show();
             }
-
-
         }
     }
 }

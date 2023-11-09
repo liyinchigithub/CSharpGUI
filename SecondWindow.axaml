@@ -1,13 +1,13 @@
 <Window x:Class="CSharpGUI.SecondWindow"
-        xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:CSharpGUI"
+    x:DataType="local:ViewModel">
     <!-- XAML内容 -->
-    <!-- 表格布局 2行2列 -->
-    <Grid RowDefinitions="*,*">
-        <TextBlock Text="{Binding Message}" Grid.Row="0"/>
-        <TextBox Grid.Row="1" Text="{Binding Message}"/>
-        <TextBox Grid.Row="2" Text="{Binding Message}"/>
-        <TextBox Grid.Row="3" Text="{Binding Message}"/>
-
+    <Grid>
+        <!-- 第一行，显示绑定的消息 -->
+        <TextBlock Text="{Binding Message, Mode=OneWay}" Grid.Row="0" Foreground="White" FontSize="36"/>
+        <!-- 第二行，可编辑的文本框 -->
+        <TextBox Grid.Row="1" Text="{Binding Message, Mode=TwoWay}"  Width="100" Height="10"/>
     </Grid>
 </Window>
