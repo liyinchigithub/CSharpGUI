@@ -998,12 +998,34 @@ public class Program
 
 4. 打包
 
+（1）安装打包工具
+```
+dotnet tool install --global dotnet-deb
+```
+
 打windows安装包
 
+```bash
+dotnet publish -c Release -r win-x64
+dotnet publish -c Release -r win-x86
+dotnet publish -c Release -r win-arm64
+dotnet publish -c Release -r win-arm
+```
 
+打linux安装包
+```bash
+dotnet publish -c Release -r linux-x64
+dotnet publish -c Release -r linux-x86
+dotnet publish -c Release -r linux-arm64
+dotnet publish -c Release -r linux-arm
+```
 
 打mac安装包
 
+```bash
+dotnet publish -c Release -r osx-x64
+dotnet publish -c Release -r osx-arm64
+```
 
 5. 单元测试
 
@@ -1143,4 +1165,59 @@ dotnet build
 12. 报错了”Application”未包含“Windows”的定义，并且找不到可接受第一个“Application”类型参数的可访问扩展方法“Windows”(是否缺少 using 指令或程序集引用?)“
 
 解决办法：
+
+
+13. 报错了“Unhandled exception. System.InvalidOperationException: The window is already being shown.”
+
+原因：这个错误是因为你试图显示一个已经显示的窗口。在Avalonia框架中，一个窗口只能被显示一次。如果你想再次显示这个窗口，你需要重新创建一个新的窗口实例。
+
+解决办法：你可以在显示窗口之后将其设置为null，然后在需要显示时再创建新的实例。
+
+```c#
+// 按钮点击事件处理函数
+private void OnClickLoginBut(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+{
+    // 获取输入框的值
+    string? account = this.FindControl<TextBox>("Account")?.Text;
+    string? password = this.FindControl<TextBox>("Password")?.Text;
+
+    // 在这里处理登录逻辑...
+
+    // 判断是否为空
+    if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password))
+    {
+        // 弹窗提示
+        _messageBox?.ShowDialog(this);
+        // 设置为null
+        _messageBox = null;
+    }
+    else
+    {
+        // 隐藏当前窗口
+        this.Hide();
+
+        // 检查是否已经存在SecondWindow实例
+        if (_secondWindow == null)
+        {
+            // 如果不存在，则创建新的实例
+            _secondWindow = new SecondWindow();
+        }
+        
+        // 显示SecondWindow实例
+        _secondWindow.Show();
+    }
+}
+```
+然后在需要显示messageBox时，检查是否为null，如果是null则创建新的实例：
+```c#
+if (_messageBox == null)
+{
+    _messageBox = new Window
+    {
+        // ...省略其他代码
+    };
+}
+_messageBox.ShowDialog(this);
+```
+
 

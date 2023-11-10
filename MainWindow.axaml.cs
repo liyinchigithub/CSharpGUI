@@ -21,27 +21,7 @@ namespace CSharpGUI
                 loginButton.Click += OnClickLoginBut;
             }
 
-            // 创建messageBox实例
-            _messageBox = new Window
-            {
-                Title = "提示",
-                Content = new TextBlock
-                {
-                    Text = "账号或密码不能为空！",
-                    // 居中对齐
-                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-                    // 字体大小
-                    FontSize = 20,
-                    // 字体颜色
-                    Foreground = new SolidColorBrush(Colors.Red)
-                },
-                Width = 200,
-                Height = 100,
-                // 居中对齐
-                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center
-            };
+
         }
 
         private void InitializeComponent()
@@ -61,8 +41,36 @@ namespace CSharpGUI
             // 判断是否为空
             if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password))
             {
+
+                if (_messageBox == null)
+                {
+                    // 创建messageBox实例
+                    _messageBox = new Window
+                    {
+                        Title = "提示",
+                        Content = new TextBlock
+                        {
+                            Text = "账号或密码不能为空！",
+                            // 居中对齐
+                            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+                            // 字体大小
+                            FontSize = 20,
+                            // 字体颜色
+                            Foreground = new SolidColorBrush(Colors.Red)
+                        },
+                        Width = 200,
+                        Height = 100,
+                        // 居中对齐
+                        HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                        VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center
+                    };
+                }
+                
                 // 弹窗提示
                 _messageBox?.ShowDialog(this);
+                // 设置为null
+                _messageBox = null;
             }
             else
             {
@@ -75,7 +83,7 @@ namespace CSharpGUI
                     // 如果不存在，则创建新的实例
                     _secondWindow = new SecondWindow();
                 }
-                
+
                 // 显示SecondWindow实例
                 _secondWindow.Show();
             }
